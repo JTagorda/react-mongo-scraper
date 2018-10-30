@@ -8,8 +8,8 @@ const userSchema = new Schema({
 	firstName: { type: String, unique: false },
 	lastName: { type: String, unique: false },
   	username: { type: String, unique: false, required: false },
-	  password: { type: String, unique: false, required: false },
-	  savedArticles: {type: Schema.Types.ObjectId, ref: "Article"}
+	password: { type: String, unique: false, required: false },
+	savedArticles: {type: Schema.Types.ObjectId, ref: "Article"}
 });
 
 // Define schema methods

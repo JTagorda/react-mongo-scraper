@@ -55,17 +55,23 @@ module.exports = {
 			delete cleanUser.password;
 		}
 		res.json({ user: cleanUser });
+  },
+  addSavedArticle: (req, res) => {
+    db.User
+      .findByIdAndUpdate(req.params.id, {$push: {savedArticles: req.body.articleId}})
+      .then(() => res.json({message: "Article Saved"}))
+      .catch(err => res.status(422).json(err));
+  },
+  removeSavedArticle: (req, res) => {
+    db.User
+      .findByIdAndUpdate(req.params.id, {$pull: {savedArticles: req.body.articleId}})
+      .then(() => res.json({message: "Article Removed"}))
+      .catch(err => res.status(422).json(err));
+  },
+  getSavedArticles: (req, res) => {
+    db.User
+      .findById(req.params.id)
+      .then(dbSArticle => res.json({savedArticles: dbSArticle.savedArticles}))
+      .catch(err => res.status(422).json(err));
   }
-  // addSavedArticle: (req, res) => {
-  //   db.User
-  //     .findByIdAndUpdate(req.params.id, {$push: {savedArticles: req.body.articleId}})
-  //     .then(() => res.json({message: "Article Saved"}))
-  //     .catch(err => res.status(422).json(err));
-  // },
-  // removeSavedArticle: (req, res) => {
-  //   db.User
-  //     .findByIdAndUpdate(req.params.id, {$pull: {savedArticles: req.body.articleId}})
-  //     .then(() => res.json({message: "Article Removed"}))
-  //     .catch(err => res.status(422).json(err));
-  // }
 };

@@ -2,7 +2,7 @@ const router = require("express").Router();
 const articleController = require("../../controllers/articleController");
 const noteController = require("../../controllers/noteController");
 
-// "/api/articles/scraped"
+// "/api/articles/scrape"
 router
     .route("/scrape")
     .get(articleController.scrape);
