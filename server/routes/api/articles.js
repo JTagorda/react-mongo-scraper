@@ -1,0 +1,28 @@
+const router = require("express").Router();
+const articleController = require("../../controllers/articleController");
+const noteController = require("../../controllers/noteController");
+
+// "/api/articles/scraped"
+router
+    .route("/scrape")
+    .get(articleController.scrape);
+
+router
+    .route("/saved-articles")
+    .get(articleController.savedArticles);
+
+// "/api/articles/"
+router
+    .route("/")
+    .get(articleController.getArticles);
+
+// "/api/articles/:id"
+router
+    .route("/:id")
+    .get(articleController.getArticlesById)
+    .post(noteController.create)
+    .delete(articleController.remove);
+
+module.exports = router;
+
+
