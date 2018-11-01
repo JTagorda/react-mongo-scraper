@@ -4,9 +4,11 @@ import "./CardBtn.css";
 const CardBtn = props => (
   <button
     onClick={props.onClick}
-    className={`card-btn ${props["data-value"]}`}
+    className={`btn btn-sm btn-primary ${props["data-value"]}`}
     {...props}
-  />
+  >
+  {props.content}
+  </button>
 );
 
 export default CardBtn;

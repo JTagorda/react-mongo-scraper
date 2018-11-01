@@ -1,9 +1,18 @@
 import React from "react";
+import CardBtn from "../CardBtn";
+import { Row, Col } from "../Grid";
 
 export const Card = props => (
-  <div className="card">
-    <div className="card-header bg-primary" style={{color: '#fff'}}>
-      <h5>{props.headline}</h5>
+  <div className="card my-2">
+    <div className="card-header text-center">
+      <Row>
+        <Col size="md-10">
+          <h5><a href={props.url}>{props.headLine}</a></h5>
+        </Col>
+        <Col size="md-2">
+          <CardBtn onClick={props.onClick} content="Notes" data-value={props.id} href="/notes"/>
+        </Col>
+      </Row>
     </div>
     <div className="card-body">
       {props.summary}
