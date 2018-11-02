@@ -23,5 +23,5 @@ export default {
 
   getNoteById: noteId => axios.get(`/api/notes/${noteId}`),
 
-  removeNote: noteId => axios.delete(`/api/notes/${noteId}`)
+  removeNote: (articleId, data) => axios.put(`/api/articles/notes/${articleId}`, data)
 };

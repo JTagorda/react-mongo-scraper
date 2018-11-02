@@ -31,15 +31,5 @@ module.exports = {
             console.log(err);
             res.end(err);
         });
-    },
-    remove: (req, res) => {
-        var id = req.params.id;
-        db.Article.findOneAndUpdate({_id: id}, {$pull: {note: req.body.noteId}})
-        .then(function(edited) {
-            res.json(edited);
-        })
-        .catch(function(error) {
-            res.end(error);
-        });
     }
 }

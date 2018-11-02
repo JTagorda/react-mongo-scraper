@@ -85,5 +85,14 @@ module.exports = {
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+  },
+  removeNote: (req, res) => {
+        db.Article.findByIdAndUpdate(req.params.id, {$pull: {note: req.body.noteId}}, {multi: true})
+            .then(function(edited) {
+            res.json(edited);
+            })
+            .catch(function(error) {
+            res.end(error);
+            });
   }
 };

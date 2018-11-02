@@ -8,7 +8,6 @@ router
 
 router
     .route("/:id")
-    .get(noteController.findById)
-    .delete(noteController.remove);
+    .get(noteController.findById);
 
 module.exports = router;

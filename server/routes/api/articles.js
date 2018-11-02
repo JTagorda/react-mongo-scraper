@@ -23,6 +23,11 @@ router
     .post(noteController.create)
     .delete(articleController.remove);
 
+// "/api/articles/notes/:id"
+router
+    .route("/notes/:id")
+    .put(articleController.removeNote);
+
 module.exports = router;
 
 
