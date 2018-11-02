@@ -87,7 +87,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   removeNote: (req, res) => {
-        db.Article.findByIdAndUpdate(req.params.id, {$pull: {note: req.body.noteId}}, {multi: true})
+        db.Article.findByIdAndUpdate(req.params.id, {$pull: {note: req.body.noteId}})
             .then(function(edited) {
             res.json(edited);
             })

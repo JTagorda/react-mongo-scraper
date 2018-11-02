@@ -39,10 +39,10 @@ class Home extends Component {
         console.log("ArticleId", articleId);
         console.log("NoteId", noteId);
         API.removeNote(articleId, data)
-            .then(result => console.log(result.data));
-        // API.removeNote(articleId, data)
-        //     .then(result => console.log(result.data));
-    
+            .then(() => (
+                API.getArticleById(articleId)
+                    .then(result => this.setState({articles: [result.data]}))
+            ));
     }
 
     handleInputChange = event => {
@@ -67,7 +67,7 @@ class Home extends Component {
     }
 
     render() {
-        // console.log(this.state.articles);
+        console.log(this.state.articles);
         return (
             <div>
                 <Route exact path="/" render={() => (
