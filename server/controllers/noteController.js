@@ -21,7 +21,7 @@ module.exports = {
             var noteId = dbNote._id;
             db.Article.findOneAndUpdate({_id: id}, {$push: {note: noteId}})
             .then(function(edited) {
-                res.json({message: edited})
+                res.json({message: edited});
             })
             .catch(function(error) {
                 res.end(error);

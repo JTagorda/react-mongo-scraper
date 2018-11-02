@@ -47,7 +47,7 @@ module.exports = {
     });
   },
   savedArticles: function(req, res) {
-    db.Article.find({saved: true}).sort({created: -1}).limit(20).populate("Note")
+    db.Article.find({saved: true}).sort({created: -1}).limit(20).populate("note")
         .then(function(dbFound) {
             res.json(dbFound);
         })
@@ -58,7 +58,7 @@ module.exports = {
         });
   },
   getArticles: function(req, res) {
-    db.Article.find({}).sort({created: -1}).limit(20).populate("Note")
+    db.Article.find({}).sort({created: -1}).limit(20).populate("note")
       .then(function(dbFound) {
           res.json(dbFound)
       })
@@ -71,7 +71,7 @@ module.exports = {
   getArticlesById: function(req, res) {
     var id = req.params.id;
     db.Article.findOne({_id: id})
-        .populate("Note")
+        .populate("note")
         .then(function(dbFound) {
             res.json(dbFound);
         })

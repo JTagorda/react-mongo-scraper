@@ -3,7 +3,7 @@ import { Route, Switch, Link } from "react-router-dom";
 import API from "../../utils/API";
 import { Card } from "../../components/Card";
 import { Row, Container, Col } from "../../components/Grid";
-import { TextArea, FormBtn} from "../../components/Form";
+import { Input, TextArea, FormBtn} from "../../components/Form";
 
 class Home extends Component {
     constructor(props)  {
@@ -13,7 +13,8 @@ class Home extends Component {
             displayNotesSize: "md-0",
             articles: [],
             viewNotes: false,
-            noteText: "",
+            noteTitle: "",
+            noteBody: "",
         }
     }
 
@@ -39,42 +40,62 @@ class Home extends Component {
         this.setState({ [name]: value});
     }
 
-    addNote = articleId => {
-        
+    handleFormSubmit = event => {
+        event.preventDefault();
+        let articleId = this.state.articles[0]._id;
+        const data = {
+            title: this.state.noteTitle,
+            body: this.state.noteBody
+        };
+        API.createNoteAndAssociateWithArticle(articleId, data)
+            .then(() => (
+                API.getArticleById(articleId)
+                    .then(result => this.setState({articles: [result.data], noteTitle: "", noteBody: ""}))
+            ));
+                
     }
 
     render() {
-        console.log(this.state.viewNotes);
+        console.log(this.state.articles);
         return (
             <div>
                 <Route exact path="/" render={() => (
                     <Container>
                         {(this.state.viewNotes) ? (
-                            <Row>
-                                <Col size="md-8 sm-12">
-                                    {this.state.articles.map(a => <Card key={a._id} id={a._id} url={"https://www.reddit.com" + a.link} headLine={a.headLine} summary={a.summary} onClick={() => this.getNotes(a._id)}/>)}
+                                <Row>
+                                    <Col size="md-8 sm-12">
+                                        {this.state.articles.map(a => <Card key={a._id} id={a._id} url={"https://www.reddit.com" + a.link} headLine={a.headLine} summary={a.summary} onClick={() => this.getNotes(a._id)}/>)}
 
-                                    { (this.state.articles.notes) ?
-                                        this.state.articles.notes.map(note => <div>{note}</div>)
-                                        : <div><h1>Notes Will Show Here</h1></div>
-                                    }
+                                        <h1 className="my-3">Posts</h1>
+                                        { (this.state.articles[0].note) ? 
+                                            this.state.articles[0].note.map(note => (
+                                                <div className="card my-2">
+                                                    <div className="card-body">
+                                                    <h5 className="card-title">{note.title}</h5>
+                                                    <p className="card-text">{note.body}</p>
+                                                    </div>
+                                                </div>
+                                            ))
+                                            : <div><h1>Notes Will Show Here</h1></div>
+                                        }
 
-                                </Col>
-                                <Col size="md-4">
-                                    <h1>Add Note</h1>
-                                   <form>
-                                        <TextArea name="noteText" value={this.state.noteText} onChange={this.handleInputChange} placeholder="Write Note Here"/>
-                                        <FormBtn onClick={() => this.addNote(this.state.articles[0]._id)}>Add</FormBtn>
-                                   </form> 
-                                </Col>
-                            </Row>
+                                    </Col>
+                                    <Col size="md-4">
+                                        <h1>Add A Note</h1>
+                                    <form>
+                                            <Input name="noteTitle" value={this.state.noteTitle} onChange={this.handleInputChange} placeholder="Note Title"/>
+                                            <TextArea name="noteBody" value={this.state.noteBody} onChange={this.handleInputChange} placeholder="Insert Note Body..."/>
+                                            <FormBtn onClick={this.handleFormSubmit}>Add</FormBtn>
+                                    </form> 
+                                    </Col>
+                                </Row>
                             )
                             :
-                            <Row>
-                                <Col size="md-12 sm-12">
-                                    {this.state.articles.map(a => <Card key={a._id} id={a._id} url={"https://www.reddit.com" + a.link} headLine={a.headLine} summary={a.summary} onClick={() => this.getNotes(a._id)}/>)}
-                                </Col>
-                            </Row>   
+                                <Row>
+                                    <Col size="md-12 sm-12">
+                                        {this.state.articles.map(a => <Card key={a._id} id={a._id} url={"https://www.reddit.com" + a.link} headLine={a.headLine} summary={a.summary} onClick={() => this.getNotes(a._id)}/>)}
+                                    </Col>
+                                </Row>  
                         }
                     </Container>
                 )} />
