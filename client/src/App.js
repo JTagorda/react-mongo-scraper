@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import LoginForm from './pages/Auth/LoginForm';
 import SignupForm from './pages/Auth/SignupForm';
-import Nav from "./components/Nav";
+import Navbar from "./components/Nav";
 import Home from './pages/Home';
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
@@ -66,14 +66,14 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-        {/* { this.state.loggedIn && (
+        { this.state.loggedIn && (
           <div>
-            <Nav user={this.state.user} logout={this.logout}/>
+            <Navbar user={this.state.user} logout={this.logout}/>
             <div className="main-view">
               <Switch>
-                <Route exact path="/" component={() => <Books user={this.state.user}/>} />
-                <Route exact path="/books" component={() => <Books user={this.state.user}/>} />
-                <Route exact path="/books/:id" component={Detail} />
+                <Route exact path="/" render={() => <Redirect to="/articles" />} />
+                <Route exact path="/articles" component={Home} />
+                <Route exact path="/articles/:id" render={props => <Detail {...props}/>} />
                 <Route component={NoMatch} />
               </Switch>
             </div>
@@ -82,12 +82,11 @@ class App extends Component {
         { !this.state.loggedIn && (
           <div className="auth-wrapper" style={{paddingTop:40}}>
             {<Route exact path="/" component={() => <LoginForm login={this.login}/>} />}
-            { <Route exact path="/books" component={() => <LoginForm user={this.login}/>} /> }
-						<Route exact path="/articles" component={() => <Home />} />
+            { <Route exact path="/articles" component={() => <LoginForm user={this.login}/>} /> }
+						{/* <Route exact path="/articles" component={Home} /> */}
             <Route exact path="/signup" component={SignupForm} />
           </div>
-        )} */}
-				<Home />
+        )}
 			</div>
 		)
 	}

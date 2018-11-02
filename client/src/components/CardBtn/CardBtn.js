@@ -1,14 +1,16 @@
 import React from "react";
 import "./CardBtn.css";
+import { Link } from "react-router-dom";
 
 const CardBtn = props => (
-  <button
-    onClick={props.onClick}
-    className={`btn btn-sm btn-primary ${props["data-value"]}`}
-    {...props}
-  >
-  {props.content}
-  </button>
+  <Link to={`/articles/${props.id}`}>
+    <button
+      className={`btn btn-sm btn-primary ${props["data-value"]}`}
+      {...props}
+    >
+    {props.content}
+    </button>
+  </Link>
 );
 
 export default CardBtn;

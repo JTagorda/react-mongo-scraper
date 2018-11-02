@@ -10,7 +10,7 @@ export const Card = props => (
           <h5><a href={props.url}>{props.headLine}</a></h5>
         </Col>
         <Col size="md-2">
-          <CardBtn onClick={props.onClick} content="Notes" data-value={props.id} href="/notes"/>
+          <CardBtn id={props.id} content="Notes" data-value={props.id} href="/notes"/>
         </Col>
       </Row>
     </div>

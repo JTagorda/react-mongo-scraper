@@ -23,9 +23,9 @@ const Nav = (props) => {
   }
   
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top border-bottom border-dark rounded">
       <Col size="md-2">
-        <Link to="/" className="navbar-brand">React Reading List</Link>
+        <Link to="/" className="navbar-brand">Scraped Pi</Link>
       </Col>
       <Col size="md-7"></Col>
       <Col size="md-3">
