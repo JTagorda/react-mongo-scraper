@@ -4,6 +4,7 @@ import LoginForm from './pages/Auth/LoginForm';
 import SignupForm from './pages/Auth/SignupForm';
 import Navbar from "./components/Nav";
 import Home from './pages/Home';
+import Saved from "./pages/SavedArticles";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import AUTH from './utils/AUTH';
@@ -74,6 +75,7 @@ class App extends Component {
                 <Route exact path="/" render={() => <Redirect to="/articles" />} />
                 <Route exact path="/articles" render={() => <Home />}/>
                 <Route exact path="/articles/:id" render={props => <Detail {...props} user={this.state.user}/>} />
+								<Route exact path="/watched-articles" render={() => <Saved user={this.state.user}/>} />
                 <Route component={NoMatch} />
               </Switch>
             </div>

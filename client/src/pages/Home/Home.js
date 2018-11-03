@@ -12,10 +12,6 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.loadArticles();
-    }
-
-    loadArticles = () => {
         API.getAllArticles()
             .then(result => this.setState({articles: result.data}));
     }
@@ -29,10 +25,6 @@ class Home extends Component {
         setTimeout(() => {
             return this.setState({scrapeText: "Scrape"});
         }, 2000);
-    }
-
-    handleSave = articleId => {
-        console.log(articleId);
     }
 
     render() {

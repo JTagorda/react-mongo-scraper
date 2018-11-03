@@ -17,7 +17,7 @@ export default {
 
   addSavedArticle: (userId, data) => axios.put(`/api/users/saved-article/${userId}`, data),
 
-  removeSavedArticle: userId => axios.delete(`/api/users/saved-article:${userId}`),
+  removeSavedArticle: (userId, data) => axios.put(`/api/users/saved-article/remove/${userId}`, data),
 
   getAllNotes: () => axios.get("/api/notes"),
 

@@ -59,13 +59,13 @@ module.exports = {
   addSavedArticle: (req, res) => {
     db.User
       .findByIdAndUpdate(req.params.id, {$push: {savedArticles: req.body.articleId}})
-      .then(() => res.json({message: "Article Saved"}))
+      .then(edited => res.json(edited))
       .catch(err => res.status(422).json(err));
   },
   removeSavedArticle: (req, res) => {
     db.User
       .findByIdAndUpdate(req.params.id, {$pull: {savedArticles: req.body.articleId}})
-      .then(() => res.json({message: "Article Removed"}))
+      .then(edited => res.json(edited))
       .catch(err => res.status(422).json(err));
   },
   getSavedArticles: (req, res) => {

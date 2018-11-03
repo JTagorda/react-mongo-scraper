@@ -9,7 +9,7 @@ const userSchema = new Schema({
 	lastName: { type: String, unique: false },
   	username: { type: String, unique: false, required: false },
 	password: { type: String, unique: false, required: false },
-	savedArticles: {type: Schema.Types.ObjectId, ref: "Article"}
+	savedArticles: [{type: Schema.Types.ObjectId, ref: "Article"}]
 });
 
 // Define schema methods

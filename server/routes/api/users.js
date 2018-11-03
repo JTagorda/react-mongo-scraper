@@ -7,6 +7,8 @@ router
     .route("/saved-article/:id")
     .get(userController.getSavedArticles)
     .put(userController.addSavedArticle)
-    .delete(userController.removeSavedArticle);
+router
+    .route("/saved-article/remove/:id")
+    .put(userController.removeSavedArticle);
 
 module.exports = router;
