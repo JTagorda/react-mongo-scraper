@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { Card } from "../../components/Card";
 import DeleteBtn from "../../components/DeleteBtn";
+import SaveBtn from "../../components/SaveBtn";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import API from "../../utils/API";
 
@@ -12,7 +13,8 @@ class Detail extends Component {
     this.state = {
       article: {},
       noteTitle: "",
-      noteBody: ""
+      noteBody: "",
+      watching: "Watch"
     }
   }
   
@@ -27,6 +29,23 @@ class Detail extends Component {
         this.setState({ article: result.data })
       })
       .catch(err => console.log(err));
+
+      // If a user watches an article, the button's text is "Watching"
+      
+      // API.getSavedArticles(this.props.user._id)
+      //   .then(result => {
+      //     const { savedArticles } = result.data
+      //     console.log("Saved Articles", savedArticles);
+
+      //     if (savedArticles.length !== undefined) {
+      //       savedArticles.each(article => {
+      //         (article._id === this.props.match.params.id) ? this.setState({watching: "Watching"}) : this.state.watching
+      //       });
+      //     } else {
+      //       (savedArticles._id === this.props.match.params.id) ? this.setState({watching: "Watching"}) : this.state.watching
+      //     }
+
+      //   });
   }
 
   deleteNote = (articleId, noteId) => {
@@ -36,6 +55,13 @@ class Detail extends Component {
             API.getArticleById(articleId)
                 .then(result => this.setState({article: result.data}))
         ));
+  }
+
+  handleWatch = articleId => {
+    let data = {articleId};
+    API.addSavedArticle(this.props.user._id, data)
+      .then(result => console.log(result))
+      .catch(err => console.log(err));
   }
 
   handleInputChange = event => {
@@ -65,7 +91,16 @@ class Detail extends Component {
         <Container>
           <Row>
             <Col size="md-8 sm-12">
-                <h1>Article</h1>
+                <Row>
+                  <Col size="md-10">
+                    <h1>Article</h1>
+                  </Col>
+                  <Col size="md-2">
+                    <SaveBtn className="btn btn-lg btn-warning text-dark" onClick={() => this.handleWatch(this.props.match.params.id)}>
+                    {this.state.watching}
+                    </SaveBtn>
+                  </Col>
+                </Row>
                 <Card id={this.state.article._id} url={"https://www.reddit.com" + this.state.article.link} headLine={this.state.article.headLine} summary={this.state.article.summary} onClick={() => this.getNotes(this.state.article._id)}/>
 
                 <h1 className="my-3">Posts</h1>

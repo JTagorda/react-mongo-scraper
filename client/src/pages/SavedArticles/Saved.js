@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import API from "../../utils/API";
 import { Card } from "../../components/Card";
 import { Row, Container, Col } from "../../components/Grid";
-import { ScrapeBtn } from "../../components/ScrapeBtn";
-class Home extends Component {
+class Saved extends Component {
    
     state = {
-        articles: [],
-        scrapeText: "Scrape",
-        scrapeBg: "bg-info"
+        articles: []
     }
 
     componentDidMount() {
@@ -20,29 +17,14 @@ class Home extends Component {
             .then(result => this.setState({articles: result.data}));
     }
 
-    runScrape = () => {
-        this.setState({scrapeText: "Scraping..."});
-        API.scrape();
-        API.getAllArticles()
-            .then(result => this.setState({articles: result.data, scrapeText: "Done", ScrapeBg: "bg-success"}));
-
-        setTimeout(() => {
-            return this.setState({scrapeText: "Scrape"});
-        }, 2000);
-    }
-
-    handleSave = articleId => {
-        console.log(articleId);
-    }
-
     render() {
-        // console.log("User", this.props.user);
+        console.log(this.state.articles);
         return (
             <div>
                 <Container>
                     <Row>
                         <Col size="md-2">
-                            <ScrapeBtn bootstrap="btn btn-lg text-light btn-info mt-5" onClick={this.runScrape}>{this.state.scrapeText}</ScrapeBtn>
+                            <ScrapeBtn classProps={"btn btn-lg text-light btn-info mt-5"} onClick={this.runScrape}>{this.state.scrapeText}</ScrapeBtn>
                         </Col>
                         <Col size="md-10 sm-12">
                             <h1>Articles</h1>
@@ -55,4 +37,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default Saved;

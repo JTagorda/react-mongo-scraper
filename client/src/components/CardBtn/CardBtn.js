@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const CardBtn = props => (
   <Link to={`/articles/${props.id}`}>
     <button
-      className={`btn btn-sm btn-primary ${props["data-value"]}`}
+      className={`btn btn-sm btn-primary mt-1 ${props["data-value"]}`}
       {...props}
     >
     {props.content}

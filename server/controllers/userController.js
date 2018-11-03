@@ -71,6 +71,7 @@ module.exports = {
   getSavedArticles: (req, res) => {
     db.User
       .findById(req.params.id)
+      .populate("savedArticles")
       .then(dbSArticle => res.json({savedArticles: dbSArticle.savedArticles}))
       .catch(err => res.status(422).json(err));
   }

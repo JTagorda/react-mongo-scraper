@@ -23,7 +23,7 @@ const Nav = (props) => {
   }
   
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-info sticky-top border-bottom border-dark rounded">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-info sticky-top border-bottom border-dark rounded mb-3">
       <Col size="md-2">
         <Link to="/" className="navbar-brand">Scraped Pi</Link>
       </Col>

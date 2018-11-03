@@ -72,8 +72,8 @@ class App extends Component {
             <div className="main-view">
               <Switch>
                 <Route exact path="/" render={() => <Redirect to="/articles" />} />
-                <Route exact path="/articles" component={Home} />
-                <Route exact path="/articles/:id" render={props => <Detail {...props}/>} />
+                <Route exact path="/articles" render={() => <Home />}/>
+                <Route exact path="/articles/:id" render={props => <Detail {...props} user={this.state.user}/>} />
                 <Route component={NoMatch} />
               </Switch>
             </div>
