@@ -94,7 +94,18 @@ class Detail extends Component {
             <form>
                     <Input name="noteTitle" value={this.state.noteTitle} onChange={this.handleInputChange} placeholder="Note Title"/>
                     <TextArea name="noteBody" value={this.state.noteBody} onChange={this.handleInputChange} placeholder="Insert Note Body..."/>
-                    <FormBtn onClick={this.handleFormSubmit}>Add</FormBtn>
+                    <Row>
+                      <Col size="md-1"></Col>
+                      <Col size="md-3">
+                        <Link to="/articles">
+                          <FormBtn bgColor="bg-info text-light">Articles</FormBtn>
+                        </Link>
+                      </Col>
+                      <Col size="md-6"></Col>
+                      <Col size="md-2">
+                        <FormBtn bgColor="bg-success text-light" onClick={this.handleFormSubmit}>Add</FormBtn>
+                      </Col>
+                    </Row>
             </form> 
             </Col>
         </Row>
