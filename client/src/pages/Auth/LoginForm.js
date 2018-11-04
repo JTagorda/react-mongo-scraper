@@ -36,34 +36,45 @@ class LoginForm extends Component {
 			return <Redirect to={{ pathname: this.state.redirectTo }} />
 		} else {
 			return (
-				<Container>
-          <Row>
-            <Col size="md-3"></Col>
-            <Col size="md-6">
-              <LoginCard title="Login to Scraped Pi">
-                <form style={{marginTop: 10}}>
-                  <label htmlFor="username">Username: </label>
-                  <Input
-                    type="text"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.handleChange}
-                  />
-                  <label htmlFor="password">Password: </label>
-                  <Input
-                    type="password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                  />
-                  <Link to="/signup">Register</Link>
-                  <FormBtn onClick={this.handleSubmit}>Login</FormBtn>
-                </form>
-              </LoginCard>
-            </Col>
-            <Col size="md-3"></Col>
-          </Row>
-				</Container>
+				<Row>
+					<Col size="md-1"></Col>
+					<Col size="md-5">
+						<div className="text-center">
+							<h1>Welcome to Scraped Pi</h1>
+							<img className="img-fluid" src="https://images.unsplash.com/photo-1526815456940-2c11653292a2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=25a07faa86f6201b4e68cac2dc351537&auto=format&fit=crop&w=1950&q=80"></img>
+						</div>
+					</Col>
+					<Col size="md-6">
+						<Container>
+							<Row>
+								<Col size="md-1"></Col>
+								<Col size="md-10">
+									<LoginCard title="Login to Scraped Pi">
+										<form style={{marginTop: 10}}>
+											<label htmlFor="username">Username: </label>
+											<Input
+												type="text"
+												name="username"
+												value={this.state.username}
+												onChange={this.handleChange}
+											/>
+											<label htmlFor="password">Password: </label>
+											<Input
+												type="password"
+												name="password"
+												value={this.state.password}
+												onChange={this.handleChange}
+											/>
+											<Link to="/signup">Register</Link>
+											<FormBtn onClick={this.handleSubmit}>Login</FormBtn>
+										</form>
+									</LoginCard>
+								</Col>
+								<Col size="md-1"></Col>
+							</Row>
+						</Container>
+					</Col>
+				</Row>
 			)
 		}
 	}
