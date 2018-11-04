@@ -39,9 +39,10 @@ class LoginForm extends Component {
 				<Row>
 					<Col size="md-1"></Col>
 					<Col size="md-5">
-						<div className="text-center">
+						<div className="text-center text-light bg-dark py-2 px-4">
 							<h1>Welcome to Scraped Pi</h1>
-							<img className="img-fluid" src="https://images.unsplash.com/photo-1526815456940-2c11653292a2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=25a07faa86f6201b4e68cac2dc351537&auto=format&fit=crop&w=1950&q=80"></img>
+							<img className="img-fluid img-thumbnail my-2" src="https://images.unsplash.com/photo-1526815456940-2c11653292a2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=25a07faa86f6201b4e68cac2dc351537&auto=format&fit=crop&w=1950&q=80"></img>
+							<p>Posts from /r/raspberry-pi/ reddit forum. Save what peaks your interest. Leave notes to inform your projects.</p>
 						</div>
 					</Col>
 					<Col size="md-6">

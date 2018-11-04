@@ -83,9 +83,14 @@ class App extends Component {
         )}
         { !this.state.loggedIn && (
           <div className="auth-wrapper" style={{paddingTop:40}}>
-            {<Route exact path="/" component={() => <LoginForm login={this.login}/>} />}
-            {/* { <Route exact path="/articles" component={() => <LoginForm user={this.login}/>} /> } */}
-            <Route exact path="/signup" component={SignupForm} />
+						<Switch>
+							{<Route exact path="/" component={() => <LoginForm login={this.login}/>} />}
+							{ <Route exact path="/articles" component={() => <Redirect to="/" />} /> }
+							{ <Route exact path="/articles/:id" component={() => <Redirect to="/" />} /> }
+							{ <Route exact path="/watched-articles" component={() => <Redirect to="/" />} /> }
+							<Route exact path="/signup" component={SignupForm} />
+							<Route component={NoMatch} />
+						</Switch>
           </div>
         )}
 			</div>
