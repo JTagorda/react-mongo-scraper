@@ -14,7 +14,8 @@ class Detail extends Component {
       article: {},
       noteTitle: "",
       noteBody: "",
-      watching: "Watch"
+      watching: "Watch",
+      isWatching: false
     }
   }
   
@@ -30,22 +31,14 @@ class Detail extends Component {
       })
       .catch(err => console.log(err));
 
-      // If a user watches an article, the button's text is "Watching"
-      
-      // API.getSavedArticles(this.props.user._id)
-      //   .then(result => {
-      //     const { savedArticles } = result.data
-      //     console.log("Saved Articles", savedArticles);
-
-      //     if (savedArticles.length !== undefined) {
-      //       savedArticles.each(article => {
-      //         (article._id === this.props.match.params.id) ? this.setState({watching: "Watching"}) : this.state.watching
-      //       });
-      //     } else {
-      //       (savedArticles._id === this.props.match.params.id) ? this.setState({watching: "Watching"}) : this.state.watching
-      //     }
-
-      //   });
+    API.getSavedArticles(this.props.user._id)
+      .then(result => {
+        (result.data.savedArticles) ? result.data.savedArticles.map(a => {
+          if (a._id === this.props.match.params.id) {
+            return this.setState({watching: "Watching", isWatching: true});
+          } 
+        }) : this.setState({watching: "Watch", isWatching: false})
+      });
   }
 
   deleteNote = (articleId, noteId) => {
@@ -59,9 +52,30 @@ class Detail extends Component {
 
   handleWatch = articleId => {
     let data = {articleId};
-    API.addSavedArticle(this.props.user._id, data)
-      .then(result => console.log(result))
-      .catch(err => console.log(err));
+    API.getSavedArticles(this.props.user._id)
+      .then(result => {
+        const { savedArticles } = result.data;
+        let notInDatabase = 0;
+        if (savedArticles.length !== undefined) {
+          savedArticles.map(article => {
+            (article._id !== articleId) ? notInDatabase++ : notInDatabase;
+          });
+
+          if (notInDatabase === savedArticles.length) { 
+            API.addSavedArticle(this.props.user._id, data)
+              .then(result => console.log(result))
+              .catch(err => console.log(err));
+            this.setState({watching: "Watching", isWatching: true});
+          } 
+        } else {
+          if (savedArticles._id !== articleId)  {
+            API.addSavedArticle(this.props.user._id, data)
+              .then(result => console.log(result))
+              .catch(err => console.log(err));
+            this.setState({watching: "Watching", isWatching: true}); 
+          } 
+        }
+      });
   }
 
   handleInputChange = event => {
@@ -96,9 +110,9 @@ class Detail extends Component {
                     <h1>Article</h1>
                   </Col>
                   <Col size="md-2">
-                    <SaveBtn className="btn btn-lg btn-warning text-dark" onClick={() => this.handleWatch(this.props.match.params.id)}>
-                    {this.state.watching}
-                    </SaveBtn>
+                  {(this.state.isWatching === false) ? <SaveBtn className="btn btn-lg btn-warning text-dark" onClick={() => this.handleWatch(this.props.match.params.id)}>{this.state.watching}</SaveBtn>
+                    : <SaveBtn className="btn btn-lg btn-warning text-dark">{this.state.watching}</SaveBtn>
+                  }
                   </Col>
                 </Row>
                 <Card id={this.state.article._id} url={"https://www.reddit.com" + this.state.article.link} headLine={this.state.article.headLine} summary={this.state.article.summary} onClick={() => this.getNotes(this.state.article._id)}/>
